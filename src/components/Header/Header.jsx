@@ -1,17 +1,16 @@
-import "../../blocks/header.css";
+import logo from "../../images/Vector.png";
+import logolinea from "../../images/Line.png";
 
 const Header = () => {
   return (
-    <>
-      <header className="header">
-        <img
-          className="header__logo"
-          src="../../images/Vector.png"
-          alt="Logotipo Around"
-        />
-        <img className="header__line" src="../../images/Line.png" alt="Linea" />
-      </header>
-    </>
+    <header className="header">
+      <div>
+        <img className="header__logo" src={logo} alt="Logotipo Around" />
+        <div>
+          <img className="header__line" src={logolinea} alt="Linea" />
+        </div>
+      </div>
+    </header>
   );
 };
 

@@ -9,11 +9,9 @@ function App() {
   //*const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div className="page">
-        <Header />
-      </div>
-    </>
+    <div className="page">
+      <Header />
+    </div>
   );
 }
 
