@@ -1,10 +1,13 @@
+import ButtonLike from "../../../../images/Group.svg";
+import image from "../../../../images/VanoisNational.png";
+
 const Card = () => {
   return (
     <div className="element__card">
       <img
         id="element__cardimage"
         className="element__cardimage"
-        src=""
+        src={image}
         alt=""
       />
       <button
@@ -14,14 +17,10 @@ const Card = () => {
       ></button>
       <div className="element__content">
         <p id="element_paragraph" className="element__contentparagraph">
-          hola
+          Valle de VanoisNational
         </p>
         <button type="button" className="element__contentbutton">
-          <img
-            src="../images/Group.svg"
-            alt="like"
-            className="element__contentlike"
-          />
+          <img src={ButtonLike} alt="like" className="element__contentlike" />
         </button>
       </div>
     </div>
