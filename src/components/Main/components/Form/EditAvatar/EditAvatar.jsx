@@ -4,7 +4,7 @@ export default function EditAvatar() {
       action="#"
       className="popup__form"
       id="popup__editperfil-form"
-      novalidate
+      noValidate
     >
       <fieldset className="popup__fieldset">
         <label id="labelenlace" className="popup__lugar-label"></label>

@@ -1,6 +1,6 @@
 export default function EditProfile() {
   return (
-    <form action="#" className="popup__form" id="popup__formedit" novalidate>
+    <form action="#" className="popup__form" id="popup__formedit" noValidate>
       <fieldset className="popup__fieldset">
         <label id="labelname" className="popup__label"></label>
         <input
@@ -9,8 +9,8 @@ export default function EditProfile() {
           id="name"
           name="name"
           placeholder="Nombre"
-          minlength="2"
-          maxlength="40"
+          minLength={2}
+          maxLength={40}
           required
         />
         <span className="popup__input-error name-error">
@@ -24,8 +24,8 @@ export default function EditProfile() {
           name="job"
           placeholder="Acerca de mi"
           required
-          minlength="2"
-          maxlength="200"
+          minLength={2}
+          maxLength={200}
         />
         <span className="popup__input-error subname-error">
           Por favor, rellena este campo.

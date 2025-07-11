@@ -1,6 +1,6 @@
 export default function NewCard() {
   return (
-    <form action="#" className="popup__form" id="popup__lugar-form" novalidate>
+    <form action="#" className="popup__form" id="popup__lugar-form" noValidate>
       <fieldset className="popup__fieldset">
         <label id="labeltitulo" className="popup__label"></label>
         <input
@@ -9,8 +9,8 @@ export default function NewCard() {
           id="name-titulo"
           name="name"
           placeholder="Titulo"
-          minlength="2"
-          maxlength="30"
+          minLength={2}
+          maxLength={30}
           required
         />
         <span className="popup__input-error name-titulo-error">
