@@ -1,15 +1,29 @@
 import ButtonLike from "../../../../images/Group.svg";
 import image from "../../../../images/VanoisNational.png";
 
-const Card = (props) => {
-  const { name, link, isLiked } = props.card;
+const Card = ({ card, setSelectedCard }) => {
+  const { name, link, isLiked } = card;
+
+  const imageComponent = {
+    title: name,
+    card: {
+      name,
+      link,
+    },
+  };
+
+  function handleOpenPopup() {
+    setSelectedCard(card);
+  }
+
   return (
     <div className="element__card">
       <img
         id="element__cardimage"
         className="element__cardimage"
         src={link}
-        alt=""
+        alt={name}
+        onClick={() => handleOpenPopup(imageComponent)}
       />
       <button
         id="popupdelete"

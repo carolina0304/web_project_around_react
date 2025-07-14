@@ -7,6 +7,7 @@ import Popup from "./components/Popup/Popup";
 import NewCard from "./components/Form/New Card/NewCard.jsx";
 import EditAvatar from "./components/Form/EditAvatar/EditAvatar.jsx";
 import EditProfile from "./components/Form/EditProfile/EditProfile.jsx";
+import ImagePopup from "./components/Form/ImagePopup/ImagePopup.jsx";
 
 import { useState } from "react";
 
@@ -33,6 +34,8 @@ console.log(cards);
 
 const Main = () => {
   const [popup, setPopup] = useState(null);
+
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const newCardPopup = { title: "Nuevo Lugar", children: <NewCard /> };
 
@@ -97,10 +100,18 @@ const Main = () => {
         </Popup>
       )}
 
+      {selectedCard && (
+        <ImagePopup card={selectedCard} onClose={() => setSelectedCard(null)} />
+      )}
+
       <section className="element">
-        <div class="element__card">
+        <div className="element__card">
           {cards.map((card) => (
-            <Card key={card._id} card={card} />
+            <Card
+              key={card._id}
+              card={card}
+              setSelectedCard={setSelectedCard}
+            />
           ))}
         </div>
       </section>
