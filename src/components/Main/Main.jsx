@@ -94,6 +94,12 @@ const Main = () => {
         </div>
       </section>
 
+      <section className="element">
+        {cards.map((card) => (
+          <Card key={card._id} card={card} setSelectedCard={setSelectedCard} />
+        ))}
+      </section>
+
       {popup && (
         <Popup onClose={handleClosePopup} title={popup.title}>
           {popup.children}
@@ -103,18 +109,6 @@ const Main = () => {
       {selectedCard && (
         <ImagePopup card={selectedCard} onClose={() => setSelectedCard(null)} />
       )}
-
-      <section className="element">
-        <div className="element__card">
-          {cards.map((card) => (
-            <Card
-              key={card._id}
-              card={card}
-              setSelectedCard={setSelectedCard}
-            />
-          ))}
-        </div>
-      </section>
     </main>
   );
 };

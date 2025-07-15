@@ -8,7 +8,7 @@ export default function ImagePopup({ card, onClose }) {
           className="popup__close popup__close-imagebig"
           onClick={onClose}
         >
-          x
+          ✖
         </button>
         <img className="popup__enlace" src={card.link} alt={card.name} />
         <div className="popup__text">
