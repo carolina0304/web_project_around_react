@@ -215,9 +215,9 @@
 }
 
 @media screen and (max-width: 544px) {
-  .popup-image {
+  /* .popup-image {
     left: 131px;
-  }
+  }*/
 
   .popup__close {
     width: 26px;
