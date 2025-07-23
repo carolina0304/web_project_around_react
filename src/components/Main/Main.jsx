@@ -9,7 +9,9 @@ import EditAvatar from "./components/Form/EditAvatar/EditAvatar.jsx";
 import EditProfile from "./components/Form/EditProfile/EditProfile.jsx";
 import ImagePopup from "./components/Form/ImagePopup/ImagePopup.jsx";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import api from "../../utils/api.js";
 
 const cards = [
   {
@@ -29,6 +31,8 @@ const cards = [
     createdAt: "2019-07-05T08:11:58.324Z",
   },
 ];
+
+/*const [cards, setCards] = useState([]);*/
 
 console.log(cards);
 
