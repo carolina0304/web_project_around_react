@@ -78,14 +78,20 @@ const Main = () => {
 
   // 👇 Aquí va la función para likes/dislikes
   async function handleCardLike(card) {
-    const isLiked = card.likes.some((like) => like._id === card.owner._id); // o currentUser._id si lo tienes en contexto
+    // Verifica una vez más si a esta tarjeta ya les has dado like
+    const isLiked = card.isLiked;
 
-    try {
-      const newCard = await api.changeLikeCardStatus(card._id, !isLiked);
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    } catch (err) {
-      console.error("Error al actualizar like:", err);
-    }
+    // Envía una solicitud a la API y obtén los datos actualizados de la tarjeta
+    await api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard
+          )
+        );
+      })
+      .catch((error) => console.error(error));
   }
 
   const currentUser = useContext(CurrentUserContext);
