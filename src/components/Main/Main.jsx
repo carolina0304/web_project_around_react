@@ -13,7 +13,11 @@ import { useState, useEffect } from "react";
 
 import api from "../../utils/api.js";
 
-const cards = [
+import { useContext } from "react";
+
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
+
+/*const cards = [
   {
     isLiked: false,
     _id: "5d1f0611d321eb4bdcd707dd",
@@ -30,11 +34,9 @@ const cards = [
     owner: "5d1f0611d321eb4bdcd707dd",
     createdAt: "2019-07-05T08:11:58.324Z",
   },
-];
+];*/
 
-/*const [cards, setCards] = useState([]);*/
-
-console.log(cards);
+/*console.log(cards);*/
 
 const Main = () => {
   const [popup, setPopup] = useState(null);
@@ -61,12 +63,27 @@ const Main = () => {
     setPopup(null);
   }
 
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((err) => {
+        () => console.log(err);
+      });
+  }, []);
+
+  const currentUser = useContext(CurrentUserContext);
+
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__info">
           <img
-            src={FotoAvatar}
+            src={currentUser?.avatar}
             alt="Arlene Gomez"
             className="profile__infoavatar"
             id="avatar"
@@ -79,7 +96,9 @@ const Main = () => {
             <img src={EditarAvatar} alt="Editar icono" />
           </button>
           <div className="profile__name">
-            <h1 className="profile__namenames" id="name"></h1>
+            <h1 className="profile__namenames" id="name">
+              {currentUser?.name}
+            </h1>
             <img
               src={EditarNombre}
               alt="editar boton"
@@ -87,7 +106,9 @@ const Main = () => {
               id="nameedit-button"
               onClick={() => handleOpenPopup(editProfilePopup)}
             />
-            <p className="profile__namesubname" id="about"></p>
+            <p className="profile__namesubname" id="about">
+              {currentUser?.about}
+            </p>
           </div>
           <img
             src={BotonAdd}

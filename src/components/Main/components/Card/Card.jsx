@@ -1,8 +1,10 @@
 import ButtonLike from "../../../../images/Group.svg";
 import image from "../../../../images/VanoisNational.png";
+import React, { useContext } from "react";
+import CurrentUserContext from "../../../../contexts/CurrentUserContext";
 
-const Card = ({ card, setSelectedCard }) => {
-  const { name, link, isLiked } = card;
+const Card = ({ card, setSelectedCard, onCardLike }) => {
+  const { name, link } = card;
 
   const imageComponent = {
     title: name,
@@ -14,6 +16,17 @@ const Card = ({ card, setSelectedCard }) => {
 
   function handleOpenPopup() {
     setSelectedCard(card);
+  }
+  const currentUser = useContext(CurrentUserContext);
+
+  const isLiked = card.likes.some((like) => like._id === currentUser._id);
+
+  const cardLikeButtonClassName = `element__contentlike ${
+    isLiked ? "element__contentlike-active" : ""
+  }`;
+
+  function handleLikeClick() {
+    onCardLike(card);
   }
 
   return (
@@ -34,7 +47,11 @@ const Card = ({ card, setSelectedCard }) => {
         <p id="element_paragraph" className="element__contentparagraph">
           {name}
         </p>
-        <button type="button" className="element__contentbutton">
+        <button
+          type="button"
+          className={cardLikeButtonClassName}
+          onClick={handleLikeClick}
+        >
           <img src={ButtonLike} alt="like" className="element__contentlike" />
         </button>
       </div>

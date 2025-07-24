@@ -6,15 +6,32 @@ import Header from "./components/Header/Header";
 import "./blocks/page.css";
 import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
+import React, { useState, useEffect } from "react";
+import api from "./utils/api.js";
+import CurrentUserContext from "./contexts/CurrentUserContext.js";
+
 function App() {
-  //*const [count, setCount] = useState(0)
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    api
+      .getUserInfo()
+      .then((userData) => {
+        setCurrentUser(userData);
+      })
+      .catch((err) => {
+        () => console.log(err);
+      });
+  }, []);
 
   return (
-    <div className="page">
-      <Header />
-      <Main />
-      <Footer />
-    </div>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Header />
+        <Main />
+        <Footer />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
