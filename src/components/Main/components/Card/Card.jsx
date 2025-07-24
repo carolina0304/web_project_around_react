@@ -4,27 +4,29 @@ import React, { useContext } from "react";
 import CurrentUserContext from "../../../../contexts/CurrentUserContext";
 
 const Card = ({ card, setSelectedCard, onCardLike }) => {
-  const { name, link } = card;
+  const { name, link, likes = [] } = card; // fallback a [] si likes no existe
 
-  const imageComponent = {
+  const currentUser = useContext(CurrentUserContext);
+
+  const isLiked = likes.some((like) => like._id === currentUser._id);
+  /*const imageComponent = {
     title: name,
     card: {
       name,
       link,
     },
-  };
-
-  function handleOpenPopup() {
-    setSelectedCard(card);
-  }
-  const currentUser = useContext(CurrentUserContext);
-
-  const isLiked = card.likes.some((like) => like._id === currentUser._id);
+  };*/
 
   const cardLikeButtonClassName = `element__contentlike ${
     isLiked ? "element__contentlike-active" : ""
   }`;
 
+  // Abrir imagen en popup
+  function handleOpenPopup() {
+    setSelectedCard(card);
+  }
+
+  // 👇 Llama al manejador del like
   function handleLikeClick() {
     onCardLike(card);
   }
@@ -36,7 +38,7 @@ const Card = ({ card, setSelectedCard, onCardLike }) => {
         className="element__cardimage"
         src={link}
         alt={name}
-        onClick={() => handleOpenPopup(imageComponent)}
+        onClick={handleOpenPopup}
       />
       <button
         id="popupdelete"
@@ -44,9 +46,7 @@ const Card = ({ card, setSelectedCard, onCardLike }) => {
         className="element__delete"
       ></button>
       <div className="element__content">
-        <p id="element_paragraph" className="element__contentparagraph">
-          {name}
-        </p>
+        <p className="element__contentparagraph">{name}</p>
         <button
           type="button"
           className={cardLikeButtonClassName}
