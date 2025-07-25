@@ -29,14 +29,14 @@ class Api {
         name: data.name,
         link: data.link,
       }),
-    }).then(this.__ApiVerification);
+    }).then(this._ApiVerification);
   }
   //Quitar una card+++++++++
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this.__ApiVerification);
+    }).then(this._ApiVerification);
   }
 
   //Obtener la info del usuario++++++++++
@@ -86,10 +86,10 @@ class Api {
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}likes/`, {
       method: isLiked ? "PUT" : "DELETE",
       headers: this._headers,
-    }).then(this._checkResponse);
+    }).then(this._ApiVerification);
   }
 }
 

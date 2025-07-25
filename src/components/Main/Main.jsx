@@ -78,8 +78,11 @@ const Main = () => {
 
   // 👇 Aquí va la función para likes/dislikes
   async function handleCardLike(card) {
+    console.log("LIKE: ", card);
     // Verifica una vez más si a esta tarjeta ya les has dado like
-    const isLiked = card.isLiked;
+    const isLiked =
+      Array.isArray(card.likes) &&
+      card.likes.some((like) => like._id === currentUser._id);
 
     // Envía una solicitud a la API y obtén los datos actualizados de la tarjeta
     await api
@@ -105,7 +108,7 @@ const Main = () => {
             alt="Arlene Gomez"
             className="profile__infoavatar"
             id="avatar"
-            loading="lazy"
+            /*loading="lazy"*/
           />
           <button
             className="profile__editavatar"
@@ -143,7 +146,7 @@ const Main = () => {
             key={card._id}
             card={card}
             onCardLike={handleCardLike} // <-- Aquí pasas la función
-            setSelectedCard={() => {}}
+            setSelectedCard={setSelectedCard}
           />
         ))}
       </section>

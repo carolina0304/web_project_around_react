@@ -17,7 +17,7 @@ const Card = ({ card, setSelectedCard, onCardLike }) => {
     },
   };*/
 
-  const cardLikeButtonClassName = `element__contentlike ${
+  const cardLikeButtonClassName = `element__contentbutton ${
     isLiked ? "element__contentlike-active" : ""
   }`;
 
