@@ -63,6 +63,8 @@ const Main = () => {
     setPopup(null);
   }
 
+  const currentUser = useContext(CurrentUserContext);
+
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -97,8 +99,17 @@ const Main = () => {
       .catch((error) => console.error(error));
   }
 
-  const currentUser = useContext(CurrentUserContext);
-
+  // 👇 Aquí va la función para likes/dislikes
+  function handleCardDelete(cardId) {
+    api
+      .deleteCard(cardId._id)
+      .then(() => {
+        setCards((prevCards) =>
+          prevCards.filter((card) => cardId._id !== cardId._id)
+        );
+      })
+      .catch((err) => console.log(err));
+  }
   return (
     <main className="content">
       <section className="profile">
@@ -147,6 +158,7 @@ const Main = () => {
             card={card}
             onCardLike={handleCardLike} // <-- Aquí pasas la función
             setSelectedCard={setSelectedCard}
+            onCardDelete={handleCardDelete}
           />
         ))}
       </section>

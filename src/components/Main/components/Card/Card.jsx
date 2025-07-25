@@ -3,7 +3,7 @@ import image from "../../../../images/VanoisNational.png";
 import React, { useContext } from "react";
 import CurrentUserContext from "../../../../contexts/CurrentUserContext";
 
-const Card = ({ card, setSelectedCard, onCardLike }) => {
+const Card = ({ card, setSelectedCard, onCardLike, onCardDelete }) => {
   const { name, link, likes = [] } = card; // fallback a [] si likes no existe
 
   const currentUser = useContext(CurrentUserContext);
@@ -31,6 +31,10 @@ const Card = ({ card, setSelectedCard, onCardLike }) => {
     onCardLike(card);
   }
 
+  // Eliminar cartas
+  function handleCardDelete() {
+    onCardDelete(card);
+  }
   return (
     <div className="element__card">
       <img
@@ -44,6 +48,7 @@ const Card = ({ card, setSelectedCard, onCardLike }) => {
         id="popupdelete"
         type="button"
         className="element__delete"
+        onClick={handleCardDelete}
       ></button>
       <div className="element__content">
         <p className="element__contentparagraph">{name}</p>
