@@ -1,11 +1,17 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import CurrentUserContext from "../../../../../contexts/CurrentUserContext.js";
 
-export default function EditProfile() {
-  const currentUser = useContext(CurrentUserContext); // Obtiene el objeto currentUser
+export default function EditProfile({ onClose }) {
+  /*const userContext = useContext(CurrentUserContext); // Obtiene el objeto currentUser*/
+  const { currentUser, handleUpdateUser } = useContext(CurrentUserContext);
 
-  const [name, setName] = useState(currentUser.name); // Agrega la variable de estado para name
-  const [description, setDescription] = useState(currentUser.about); // Agrega la variable de estado para description
+  const [name, setName] = useState(currentUser?.name || ""); // Agrega la variable de estado para name
+  const [description, setDescription] = useState(currentUser?.about || ""); // Agrega la variable de estado para description
+
+  useEffect(() => {
+    setName(currentUser?.name || "");
+    setDescription(currentUser?.about || "");
+  }, [currentUser]);
 
   const handleNameChange = (event) => {
     setName(event.target.value); // Actualiza name cuando cambie la entrada
@@ -14,8 +20,20 @@ export default function EditProfile() {
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value); // Actualiza about cuando cambie la entrada
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Evita el comportamiento predeterminado del envío de formularios
+    handleUpdateUser({ name, about: description });
+    onClose();
+  };
   return (
-    <form action="#" className="popup__form" id="popup__formedit" noValidate>
+    <form
+      action="#"
+      className="popup__form"
+      id="popup__formedit"
+      noValidate
+      onSubmit={handleSubmit}
+    >
       <h2 className="popup__title">Editar Perfil</h2>
       <fieldset className="popup__fieldset">
         <label id="labelname" className="popup__label"></label>
@@ -50,12 +68,7 @@ export default function EditProfile() {
         <span className="popup__input-error subname-error">
           Por favor, rellena este campo.
         </span>
-        <button
-          type="submit"
-          className="popup__button popup__button_disabled"
-          id="popup_guardaredit"
-          disabled
-        >
+        <button type="submit" className="popup__button" id="popup_guardaredit">
           Guardar
         </button>
       </fieldset>

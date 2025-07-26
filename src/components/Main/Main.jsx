@@ -43,16 +43,19 @@ const Main = () => {
 
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const newCardPopup = { title: "Nuevo Lugar", children: <NewCard /> };
+  const newCardPopup = {
+    title: "Nuevo Lugar",
+    children: <NewCard onClose={handleClosePopup} />,
+  };
 
   const editAvatarPopup = {
     title: "Cambiar foto de perfil",
-    children: <EditAvatar />,
+    children: <EditAvatar onClose={handleClosePopup} />,
   };
 
   const editProfilePopup = {
     title: "Editar Perfil",
-    children: <EditProfile />,
+    children: <EditProfile onClose={handleClosePopup} />,
   };
 
   function handleOpenPopup(popup) {
@@ -63,7 +66,7 @@ const Main = () => {
     setPopup(null);
   }
 
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   const [cards, setCards] = useState([]);
 
@@ -96,17 +99,15 @@ const Main = () => {
           )
         );
       })
-      .catch((error) => console.error(error));
+      .catch((err) => console.log(err));
   }
 
   // 👇 Aquí va la función para likes/dislikes
-  function handleCardDelete(cardId) {
+  function handleCardDelete(card) {
     api
-      .deleteCard(cardId._id)
+      .deleteCard(card._id)
       .then(() => {
-        setCards((prevCards) =>
-          prevCards.filter((card) => cardId._id !== cardId._id)
-        );
+        setCards((prevCards) => prevCards.filter((c) => c._id !== card._id));
       })
       .catch((err) => console.log(err));
   }

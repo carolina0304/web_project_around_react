@@ -6,7 +6,7 @@ import CurrentUserContext from "../../../../contexts/CurrentUserContext";
 const Card = ({ card, setSelectedCard, onCardLike, onCardDelete }) => {
   const { name, link, likes = [] } = card; // fallback a [] si likes no existe
 
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   const isLiked = likes.some((like) => like._id === currentUser._id);
   /*const imageComponent = {

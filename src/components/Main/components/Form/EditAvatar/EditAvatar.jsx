@@ -1,11 +1,28 @@
-export default function EditAvatar() {
+import { useRef } from "react";
+import { useContext } from "react";
+import CurrentUserContext from "../../../../../contexts/CurrentUserContext";
+
+export default function EditAvatar({ onClose }) {
+  const avatarRef = useRef();
+  const { handleUpdateAvatar } = useContext(CurrentUserContext);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    handleUpdateAvatar({
+      avatar: avatarRef.current.value,
+    });
+  }
+
   return (
     <form
       action="#"
       className="popup__form"
       id="popup__editperfil-form"
       noValidate
+      onSubmit={handleSubmit}
     >
+      <h2 className="popup__title">Cambiar foto de perfil</h2>
       <fieldset className="popup__fieldset">
         <label id="labelenlace" className="popup__lugar-label"></label>
         <input
@@ -23,7 +40,6 @@ export default function EditAvatar() {
           id="popup_guardar"
           type="submit"
           className="popup__button popup__button_disabled"
-          disabled
         >
           Guardar
         </button>
