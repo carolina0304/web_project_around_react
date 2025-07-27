@@ -15,6 +15,19 @@ function App() {
 
   const [selectedCard, setSelectedCard] = useState(null);
 
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((err) => {
+        console.error("Error al cargar tarjetas:", err);
+      });
+  }, []);
+
   useEffect(() => {
     api
       .getUserInfo()
@@ -63,13 +76,62 @@ function App() {
       });
   };
 
+  //Like de la tarjeta
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    const likePromise = isLiked
+      ? api.removeLike(card._id)
+      : api.addLike(card._id);
+
+    likePromise
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => console.error(err));
+  };
+
+  //Eliminat tarjeta
+  const handleCardDelete = (card) => {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handleAppPlaceSubmit = (newCardData) => {
+    api
+      .addCard(newCardData)
+      .then((newCard) => {
+        setCards((prevCards) => [newCard, ...prevCards]);
+        handleClosePopup();
+      })
+      .catch((err) => {
+        console.error("Error al agregar tarjeta:", err);
+      });
+  };
+
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
+      value={{
+        currentUser,
+        handleUpdateUser,
+        onUpdateAvatar: handleUpdateAvatar,
+        handleAppPlaceSubmit,
+      }}
     >
       <div className="page">
         <Header />
         <Main
+          cards={cards}
+          setCards={setCards}
+          onAddPlaceSubmit={handleAppPlaceSubmit}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
           onOpenPopup={handleOpenPopup}
           onClosePopup={handleClosePopup}
           popup={selectedCard}

@@ -38,14 +38,21 @@ import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
 /*console.log(cards);*/
 
-const Main = () => {
+const Main = ({ cards, setCards, onAddPlaceSubmit }) => {
   const [popup, setPopup] = useState(null);
 
   const [selectedCard, setSelectedCard] = useState(null);
 
   const newCardPopup = {
     title: "Nuevo Lugar",
-    children: <NewCard onClose={handleClosePopup} />,
+    children: (
+      <NewCard
+        onClose={handleClosePopup}
+        onAddPlaceSubmit={(newCardData) =>
+          Promise.resolve(onAddPlaceSubmit(newCardData)).then(handleClosePopup)
+        }
+      />
+    ),
   };
 
   const editAvatarPopup = {
@@ -68,18 +75,7 @@ const Main = () => {
 
   const { currentUser } = useContext(CurrentUserContext);
 
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => {
-        () => console.log(err);
-      });
-  }, []);
+  /*const [cards, setCards, onAddPlaceSubmit] = props;*/
 
   // 👇 Aquí va la función para likes/dislikes
   async function handleCardLike(card) {

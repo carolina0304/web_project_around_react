@@ -4,14 +4,15 @@ import CurrentUserContext from "../../../../../contexts/CurrentUserContext";
 
 export default function EditAvatar({ onClose }) {
   const avatarRef = useRef();
-  const { handleUpdateAvatar } = useContext(CurrentUserContext);
+  const { onUpdateAvatar } = useContext(CurrentUserContext);
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    handleUpdateAvatar({
+    console.log("Formulario enviado:", avatarRef.current.value);
+    onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
+    onClose();
   }
 
   return (
@@ -31,16 +32,13 @@ export default function EditAvatar({ onClose }) {
           id="perfil-enlace"
           name="url"
           placeholder="URL de imagen"
+          ref={avatarRef}
           required
         />
         <span className="popup__input-error perfil-enlace-error">
           Por favor, Introduce una imagen.
         </span>
-        <button
-          id="popup_guardar"
-          type="submit"
-          className="popup__button popup__button_disabled"
-        >
+        <button id="popup_guardar" type="submit" className="popup__button">
           Guardar
         </button>
       </fieldset>

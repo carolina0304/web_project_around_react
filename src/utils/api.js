@@ -60,11 +60,11 @@ class Api {
   }
 
   //Colocar una foto de perfil+++++++
-  AvatarUpdate(avatarUrl) {
+  AvatarUpdate(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ avatar: avatarUrl }),
+      body: JSON.stringify({ avatar: data.avatar }),
     }).then(this._ApiVerification);
   }
 
