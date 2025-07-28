@@ -1,14 +1,10 @@
-//*import { useState } from 'react'
-/*import reactLogo from "./assets/react.svg";*/
-/*import viteLogo from "/vite.svg";*/
-import "./App.css";
-import Header from "./components/Header/Header";
-import "./blocks/page.css";
-import Main from "./components/Main/Main";
-import Footer from "./components/Footer/Footer";
+import Header from "../components/Header/Header";
+import "../blocks/page.css";
+import Main from "../components/Main/Main";
+import Footer from "../components/Footer/Footer";
 import { useState, useEffect } from "react";
-import api from "./utils/api.js";
-import CurrentUserContext from "./contexts/CurrentUserContext.js";
+import api from "../utils/api.js";
+import CurrentUserContext from "../contexts/CurrentUserContext.js";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
