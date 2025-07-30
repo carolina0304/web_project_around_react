@@ -34,7 +34,6 @@ export default function EditProfile({ onClose }) {
       noValidate
       onSubmit={handleSubmit}
     >
-      <h2 className="popup__title">Editar Perfil</h2>
       <fieldset className="popup__fieldset">
         <label id="labelname" className="popup__label"></label>
         <input
